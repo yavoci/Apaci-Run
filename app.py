@@ -257,4 +257,4 @@ def save():
 
 
 if __name__ == "__main__":
-  app.run(debug=os.environ.get("INSECURE_DEV") == "1")
+   app.run(debug=os.environ.get("INSECURE_DEV") == "1")
