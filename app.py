@@ -81,17 +81,12 @@ def hash_code(email, code):
 
 
 def send_mail(to, code):
-  """Kodu Google Apps Script üzerinden Gmail ile gönderir (HTTPS, Render ücretsiz planda çalışır)."""
-  url, secret = os.environ.get("APPS_SCRIPT_URL"), os.environ.get(
-      "APPS_SCRIPT_SECRET"
-  )
+  """Kodu Google Apps Script üzerinden Gmail ile gönderir."""
+  url = os.environ.get("APPS_SCRIPT_URL")
   if url:
-    payload = {"to": to, "code": code}
-    if secret:
-      payload["secret"] = secret
     req = urllib.request.Request(
         url,
-        json.dumps(payload).encode(),
+        json.dumps({"to": to, "code": code}).encode(),
         {"Content-Type": "application/json", "User-Agent": "apaci-run/1.0"},
     )
     res = json.loads(urllib.request.urlopen(req, timeout=25).read().decode())
